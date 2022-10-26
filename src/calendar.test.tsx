@@ -10,7 +10,7 @@ import {
   useDisclosure,
   useOutsideClick,
 } from '@chakra-ui/react'
-import { addMonths, format, isAfter, isBefore, isValid } from 'date-fns'
+import { addMonths, format, isAfter, isBefore, isValid } from './dateUtils'
 import {
   Calendar,
   CalendarControls,
@@ -37,7 +37,7 @@ function CalendarBasic() {
 
   const handleSelectDate = (date: CalendarDate) => {
     setDate(date)
-    setValue(() => (isValid(date) ? format(date, 'MM/dd/yyyy') : ''))
+    setValue(() => (isValid(date) ? format(date, 'MM/DD/YYYY') : ''))
     onClose()
   }
 
@@ -141,9 +141,9 @@ function CalendarRange() {
 
     setValues({
       start: isValid(dates.start)
-        ? format(dates.start as Date, 'MM/dd/yyyy')
+        ? format(dates.start as Date, 'MM/DD/YYYY')
         : '',
-      end: isValid(dates.end) ? format(dates.end as Date, 'MM/dd/yyyy') : '',
+      end: isValid(dates.end) ? format(dates.end as Date, 'MM/DD/YYYY') : '',
     })
 
     if (dates.end) {
@@ -281,12 +281,12 @@ function CalendarRange() {
 
 const TODAY = new Date()
 const CURRENT_MONTH_NUMBER = format(TODAY, 'MM')
-const CURRENT_YEAR = format(TODAY, 'yyyy')
-const CURRENT_CALENDAR_NAME = format(TODAY, 'MMMM, yyyy')
+const CURRENT_YEAR = format(TODAY, 'YYYY')
+const CURRENT_CALENDAR_NAME = format(TODAY, 'MMMM, YYYY')
 
 const NEXT_MONTH = addMonths(TODAY, 1)
 const NEXT_MONTH_NUMBER = format(NEXT_MONTH, 'MM')
-const NEXT_CALENDAR_NAME = format(NEXT_MONTH, 'MMMM, yyyy')
+const NEXT_CALENDAR_NAME = format(NEXT_MONTH, 'MMMM, YYYY')
 
 test('should select a date', () => {
   render(<CalendarBasic />)

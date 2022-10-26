@@ -1,6 +1,13 @@
 import * as React from 'react'
 import { ComponentStory, ComponentMeta } from '@storybook/react'
-import { addDays, format, isAfter, isBefore, isValid, subDays } from 'date-fns'
+import {
+  addDays,
+  format,
+  isAfter,
+  isBefore,
+  isValid,
+  subDays,
+} from './dateUtils'
 import {
   Box,
   Button,
@@ -16,7 +23,6 @@ import {
   useOutsideClick,
   VStack,
 } from '@chakra-ui/react'
-import * as locales from 'date-fns/locale'
 
 import { Calendar } from './calendar'
 import { CalendarMonth } from './month'
@@ -56,47 +62,6 @@ export const Basic: ComponentStory<typeof Calendar> = () => {
       </CalendarMonths>
     </Calendar>
   )
-}
-
-export const CustomLocale: ComponentStory<typeof Calendar> = ({ locale }) => {
-  const [dates, setDates] = React.useState<CalendarValues>({})
-
-  const handleSelectDate = (dates: CalendarValues) => setDates(dates)
-
-  return (
-    <Calendar
-      value={dates}
-      onSelectDate={handleSelectDate}
-      locale={locale}
-      weekdayFormat="EEEEEE"
-    >
-      <CalendarControls>
-        <CalendarPrevButton />
-        <CalendarNextButton />
-      </CalendarControls>
-
-      <CalendarMonths>
-        <CalendarMonth>
-          <CalendarMonthName />
-          <CalendarWeek />
-          <CalendarDays />
-        </CalendarMonth>
-      </CalendarMonths>
-    </Calendar>
-  )
-}
-
-const mapping = Object.fromEntries(Object.entries(locales))
-
-CustomLocale.argTypes = {
-  locale: {
-    options: Object.keys(mapping),
-    mapping,
-  },
-}
-
-CustomLocale.args = {
-  locale: locales.ptBR,
 }
 
 export const DisablePastDates: ComponentStory<typeof Calendar> = () => {
@@ -384,7 +349,7 @@ export const WithInputPopover: ComponentStory<typeof Calendar> = () => {
 
   const handleSelectDate = (date: CalendarDate) => {
     setDate(date)
-    setValue(() => (isValid(date) ? format(date, 'MM/dd/yyyy') : ''))
+    setValue(() => (isValid(date) ? format(date, 'MM/DD/YYYY') : ''))
     onClose()
   }
 
@@ -489,9 +454,9 @@ export const WithInputPopoverStartEndDates: ComponentStory<typeof Calendar> =
 
       setValues({
         start: isValid(dates.start)
-          ? format(dates.start as Date, 'MM/dd/yyyy')
+          ? format(dates.start as Date, 'MM/DD/YYYY')
           : '',
-        end: isValid(dates.end) ? format(dates.end as Date, 'MM/dd/yyyy') : '',
+        end: isValid(dates.end) ? format(dates.end as Date, 'MM/DD/YYYY') : '',
       })
 
       if (dates.end) {
@@ -793,11 +758,11 @@ function CustomDay() {
     >
       {new Date(day).getDate() < 8 ? (
         <Box d="flex" flexDirection="column" alignItems="center">
-          <Text>{format(day, 'd')}</Text>
+          <Text>{format(day, 'D')}</Text>
           <Circle size="4px" bgColor="pink.300" />
         </Box>
       ) : (
-        format(day, 'd')
+        format(day, 'D')
       )}
     </Button>
   )

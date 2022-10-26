@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Grid, useMultiStyleConfig } from '@chakra-ui/react'
-import { format } from 'date-fns'
+import { format } from './dateUtils'
 import type { CalendarMonthStyles } from './types'
 import { CalendarContext } from './context'
 import { CalendarDay } from './day'
@@ -20,7 +20,7 @@ export function CalendarDays({ children }: React.PropsWithChildren<unknown>) {
         }
 
         return (
-          <DayContext.Provider value={{ day }} key={format(day, 'd-M')}>
+          <DayContext.Provider value={{ day }} key={format(day, 'D-M')}>
             {children ? children : <CalendarDay>{children}</CalendarDay>}
           </DayContext.Provider>
         )

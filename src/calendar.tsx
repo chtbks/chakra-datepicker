@@ -8,16 +8,14 @@ import {
   isBefore,
   isSameDay,
   isValid,
-  Locale,
   startOfWeek,
-} from 'date-fns'
+} from './dateUtils'
 import { CalendarDate, CalendarStyles, CalendarValues, Target } from './types'
 
 export type Calendar = React.PropsWithChildren<{
   value: CalendarValues
   onSelectDate: (value: CalendarDate | CalendarValues) => void
   months?: number
-  locale?: Locale
   allowOutsideDays?: boolean
   disablePastDates?: boolean | Date
   disableFutureDates?: boolean | Date
@@ -41,7 +39,6 @@ export function Calendar({
   disableFutureDates,
   disableWeekends,
   disableDates,
-  locale,
   weekdayFormat,
   onSelectDate,
   weekStartsOn,
@@ -56,7 +53,6 @@ export function Calendar({
     blockFuture: false,
     start: value?.start || new Date(),
     months,
-    locale,
     weekStartsOn,
   })
 
@@ -78,8 +74,8 @@ export function Calendar({
 
     if (weekDateSelection) {
       return onSelectDate({
-        start: startOfWeek(date, { locale, weekStartsOn }),
-        end: endOfWeek(date, { locale, weekStartsOn }),
+        start: startOfWeek(date),
+        end: endOfWeek(date),
       })
     }
 
@@ -119,7 +115,6 @@ export function Calendar({
         disableFutureDates,
         disablePastDates,
         disableWeekends,
-        locale,
         weekdayFormat,
         weekStartsOn,
         highlightToday,

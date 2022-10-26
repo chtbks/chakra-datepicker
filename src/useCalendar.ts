@@ -5,11 +5,10 @@ import {
   endOfMonth,
   endOfWeek,
   isSameMonth,
-  Locale,
   startOfMonth,
   startOfWeek,
   subMonths,
-} from 'date-fns'
+} from './dateUtils'
 import type { CalendarDate } from './types'
 
 function replaceOutMonthDays(days: CalendarDate[], date: CalendarDate) {
@@ -21,7 +20,6 @@ export type UseCalendar = {
   blockFuture?: boolean
   allowOutsideDays?: boolean
   months?: number
-  locale?: Locale
   weekStartsOn?: 0 | 1 | 2 | 3 | 4 | 5 | 6
 }
 
@@ -30,8 +28,6 @@ export function useCalendar({
   months = 1,
   blockFuture,
   allowOutsideDays,
-  locale,
-  weekStartsOn,
 }: UseCalendar) {
   const initialState = blockFuture ? subMonths(start, 1) : start
   const [date, setDate] = React.useState<CalendarDate>(initialState)
@@ -48,11 +44,8 @@ export function useCalendar({
 
         const startDateOfMonth = startOfMonth(month)
         const endDateOfMonth = endOfMonth(month)
-        const startWeek = startOfWeek(startDateOfMonth, {
-          locale,
-          weekStartsOn,
-        })
-        const endWeek = endOfWeek(endDateOfMonth, { locale, weekStartsOn })
+        const startWeek = startOfWeek(startDateOfMonth)
+        const endWeek = endOfWeek(endDateOfMonth)
         const days = eachDayOfInterval({ start: startWeek, end: endWeek })
 
         return {

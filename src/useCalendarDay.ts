@@ -7,7 +7,7 @@ import {
   isSameDay,
   isWeekend,
   startOfMonth,
-} from 'date-fns'
+} from './dateUtils'
 import { CalendarContext } from './context'
 import { MonthContext } from './month'
 import { CalendarDate } from './types'

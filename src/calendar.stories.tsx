@@ -757,7 +757,7 @@ function CustomDay() {
       sx={{ ...selected, ...range }}
     >
       {new Date(day).getDate() < 8 ? (
-        <Box d="flex" flexDirection="column" alignItems="center">
+        <Box display="flex" flexDirection="column" alignItems="center">
           <Text>{format(day, 'D')}</Text>
           <Circle size="4px" bgColor="pink.300" />
         </Box>

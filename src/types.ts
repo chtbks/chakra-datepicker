@@ -1,4 +1,4 @@
-import type { CSSObject } from '@chakra-ui/react'
+import type { SystemStyleObject } from '@chakra-ui/react'
 
 export type CalendarDate = Date | number
 
@@ -15,7 +15,7 @@ export enum Target {
 }
 
 export type CalendarThemeKeys = 'calendar' | 'months'
-export type CalendarStyles = Record<CalendarThemeKeys, CSSObject>
+export type CalendarStyles = Record<CalendarThemeKeys, SystemStyleObject>
 
 export type CalendarMonthThemeKeys =
   | 'month'
@@ -23,7 +23,13 @@ export type CalendarMonthThemeKeys =
   | 'week'
   | 'weekday'
   | 'days'
-export type CalendarMonthStyles = Record<CalendarMonthThemeKeys, CSSObject>
+export type CalendarMonthStyles = Record<
+  CalendarMonthThemeKeys,
+  SystemStyleObject
+>
 
 export type CalendarControlThemeKeys = 'controls' | 'button'
-export type CalendarControlStyles = Record<CalendarControlThemeKeys, CSSObject>
+export type CalendarControlStyles = Record<
+  CalendarControlThemeKeys,
+  SystemStyleObject
+>
